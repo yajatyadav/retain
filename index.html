@@ -33,19 +33,19 @@
                         <!-- <h2 class="title" style="font-size: large; color: grey;"></h2> -->
                         <div class="is-size-5 publication-authors">
                             <span class="author-block">
-                                <a href="https://zhouzypaul.github.io/">Yajat Yadav</a><sup>1*</sup>,
+                                <a href="https://yajatyadav.github.io/">Yajat Yadav</a><sup>1*</sup>,
                             </span>
                             <span class="author-block">
-                                <a href="https://andypeng05.github.io/">Zhiyuan Zhou</a><sup>1*</sup>,
+                                <a href="https://zhouzypaul.github.io/">Zhiyuan Zhou</a><sup>1*</sup>,
                             </span>
                             <span class="author-block">
-                                <a href="https://colinqiyangli.github.io">Andrew Wagenmaker</a><sup>1</sup>,
+                                <a href="https://wagenmaker.github.io">Andrew Wagenmaker</a><sup>1</sup>,
                             </span>
                             <span class="author-block">
-                                <a href="https://people.eecs.berkeley.edu/~svlevine/">Karl Pertsch</a><sup>1</sup>
+                                <a href="https://kpertsch.github.io/">Karl Pertsch</a><sup>1</sup>
                             </span>
                             <span class="author-block">
-                                <a href="https://aviralkumar2907.github.io">Sergey Levine</a><sup>1</sup>
+                                <a href="https://people.eecs.berkeley.edu/~svlevine/">Sergey Levine</a><sup>1</sup>
                             </span>
                         </div>
 
@@ -84,7 +84,7 @@
     <section class="hero teaser" style="padding-top: 0;">
         <div class="container is-max-desktop">
             <div class="hero-body">
-                <img id="teaser" src="../images/retain_teaser.png" alt="robust finetuning of VLA robot policies"
+                <img id="teaser" src="images/retain_teaser.png" alt="robust finetuning of VLA robot policies"
                     width="100%">
                 <h2 class="subtitle has-text-centered">
                 </h2>
@@ -93,20 +93,16 @@
     </section>
 
     <section class="section">
-        <div class="container is-max-desktop has-text-centered">
-            <div class="custom-box">
-                <h2 class="title is-2"> TL;DR</h2>
-                <div class="columns">
-                    <div class="column">
-                        <div class="content has-text-justified">
-                            <p class="is-size-5">
-
-                                TODO: write a short summary here.
-                            </p>
-                        </div>
-                    </div>
+        <div class="container is-max-desktop">
+            <div style="background-color: #f5f5f5; padding: 40px; border-radius: 10px; margin: 0 auto; max-width: 85%;">
+                <h2 class="title is-2 has-text-centered">TL;DR</h2>
+                <div class="content has-text-centered">
+                    <p class="is-size-5">
+                        TODO: write a short summary here.
+                    </p>
                 </div>
             </div>
+        </div>
     </section>
 
     <section class="section">
@@ -114,38 +110,163 @@
             <h2 class="title is-3">Robot Results</h2>
             <div class="content has-text-justified">
                 <p>
-                    TODO: RETAIN allows for robust, generalizable finetuning of VLA robot policies. We test RETAIN with
-                    and without using pretraining data
+                    RETAIN allows for robust, generalizable finetuning of VLA robot policies. Below, we demonstrate
+                    RETAIN's performance on two different robotic manipulation tasks, showing both in-distribution
+                    success and out-of-distribution generalization compared to standard task finetuning.
                 </p>
             </div>
-            <!-- Container for stacked videos with labels -->
-            <div style="width: 100%; margin: 0;">
-                <!-- Top video label -->
-                <div style="width: 50%; text-align: center; margin-bottom: 8px;">
-                    <span style="font-weight: bold; font-size: 1.1em;">TODO: success videos on plates </span>
+
+            <!-- Plates Task Section -->
+            <div style="margin-top: 40px; margin-bottom: 60px;">
+                <h3 class="title is-4">Plates Task</h3>
+                <div class="content has-text-justified" style="margin-bottom: 20px;">
+                    <p>
+                        In this task, the robot must precisely grab a plate and insert it into the grooves of a dish
+                        rack. We first show successful task finetuning on the in-distribution environment, followed by
+                        comparisons of task finetuning failures versus RETAIN successes on out-of-distribution test
+                        cases.
+                    </p>
                 </div>
 
-
-                <div style="width: 100%; margin-bottom: 20px; display: flex; justify-content: center;">
-                    <video controls autoplay loop muted playsinline width="50%">
-                        <source src="videos/plates_id_taskft_success.MOV" type="video/mp4">
+                <!-- Single success video -->
+                <div style="width: 100%; text-align: center; margin-bottom: 10px;">
+                    <span style="font-weight: bold; font-size: 1em;">Task Finetuning Success (In-Distribution)</span>
+                </div>
+                <div style="width: 100%; margin-bottom: 40px; display: flex; justify-content: center;">
+                    <video controls autoplay loop muted playsinline style="width: 60%; max-width: 600px;">
+                        <source src="videos/plates_id_taskft_success.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
                 </div>
 
-
-                <div style="width: 100%; text-align: center; margin-bottom: 8px;">
-                    <span style="font-weight: bold; font-size: 1.1em;">TODO: success videos on whiteboards </span>
+                <!-- OOD Comparison 1 -->
+                <div style="width: 100%; text-align: center; margin-bottom: 10px;">
+                    <span style="font-weight: bold; font-size: 1em;">Out-of-Distribution Scenario 1</span>
+                </div>
+                <div style="display: flex; justify-content: center; gap: 2%; margin-bottom: 30px;">
+                    <div style="flex: 1; max-width: 45%; text-align: center;">
+                        <div style="margin-bottom: 8px; font-weight: 600;">Task Finetuning (Failure)</div>
+                        <video controls autoplay loop muted playsinline style="width: 100%;">
+                            <source src="videos/plates_ood_1_taskft_failure.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    <div style="flex: 1; max-width: 45%; text-align: center;">
+                        <div style="margin-bottom: 8px; font-weight: 600;">RETAIN (Success)</div>
+                        <video controls autoplay loop muted playsinline style="width: 100%;">
+                            <source src="videos/plates_ood_1_retain_success.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
                 </div>
 
-                <div style="width: 50%;">
-                    <video controls autoplay loop muted playsinline width="100%">
-                        <source src="" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
+                <!-- OOD Comparison 2 -->
+                <div style="width: 100%; text-align: center; margin-bottom: 10px;">
+                    <span style="font-weight: bold; font-size: 1em;">Out-of-Distribution Scenario 2</span>
+                </div>
+                <div style="display: flex; justify-content: center; gap: 2%; margin-bottom: 30px;">
+                    <div style="flex: 1; max-width: 45%; text-align: center;">
+                        <div style="margin-bottom: 8px; font-weight: 600;">Task Finetuning (Failure)</div>
+                        <video controls autoplay loop muted playsinline style="width: 100%;">
+                            <source src="videos/plates_ood_2_taskft_failure.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    <div style="flex: 1; max-width: 45%; text-align: center;">
+                        <div style="margin-bottom: 8px; font-weight: 600;">RETAIN (Success)</div>
+                        <video controls autoplay loop muted playsinline style="width: 100%;">
+                            <source src="videos/plates_ood_2_retain_success.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
                 </div>
             </div>
-        </div>
+
+            <!-- Whiteboards Task Section -->
+            <div style="margin-top: 40px; margin-bottom: 60px;">
+                <h3 class="title is-4">Whiteboard Task</h3>
+                <div class="content has-text-justified" style="margin-bottom: 20px;">
+                    <p>
+                        This task involves grabbing an eraser and wiping text off a whiteboard. Similar to the plates
+                        task, we demonstrate in-distribution success followed
+                        by out-of-distribution comparisons showing RETAIN's robustness.
+                    </p>
+                </div>
+
+                <!-- Single success video -->
+                <div style="width: 100%; text-align: center; margin-bottom: 10px;">
+                    <span style="font-weight: bold; font-size: 1em;">Task Finetuning Success (In-Distribution)</span>
+                </div>
+                <div style="width: 100%; margin-bottom: 40px; display: flex; justify-content: center;">
+                    <video controls autoplay loop muted playsinline style="width: 60%; max-width: 600px;">
+                        <source src="videos/whiteboard_id_taskft_success.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+
+                <!-- OOD Comparison 1 -->
+                <div style="width: 100%; text-align: center; margin-bottom: 10px;">
+                    <span style="font-weight: bold; font-size: 1em;">Out-of-Distribution Scenario 1</span>
+                </div>
+                <div style="display: flex; justify-content: center; gap: 2%; margin-bottom: 30px;">
+                    <div style="flex: 1; max-width: 45%; text-align: center;">
+                        <div style="margin-bottom: 8px; font-weight: 600;">Task Finetuning (Failure)</div>
+                        <video controls autoplay loop muted playsinline style="width: 100%;">
+                            <source src="videos/whiteboard_ood_1_taskft_failure.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    <div style="flex: 1; max-width: 45%; text-align: center;">
+                        <div style="margin-bottom: 8px; font-weight: 600;">RETAIN (Success)</div>
+                        <video controls autoplay loop muted playsinline style="width: 100%;">
+                            <source src="videos/whiteboard_ood_1_retain_success.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                </div>
+
+                <!-- OOD Comparison 2 -->
+                <div style="width: 100%; text-align: center; margin-bottom: 10px;">
+                    <span style="font-weight: bold; font-size: 1em;">Out-of-Distribution Scenario 2</span>
+                </div>
+                <div style="display: flex; justify-content: center; gap: 2%; margin-bottom: 30px;">
+                    <div style="flex: 1; max-width: 45%; text-align: center;">
+                        <div style="margin-bottom: 8px; font-weight: 600;">Task Finetuning (Failure)</div>
+                        <video controls autoplay loop muted playsinline style="width: 100%;">
+                            <source src="videos/whiteboard_ood_2_taskft_failure.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    <div style="flex: 1; max-width: 45%; text-align: center;">
+                        <div style="margin-bottom: 8px; font-weight: 600;">RETAIN (Success)</div>
+                        <video controls autoplay loop muted playsinline style="width: 100%;">
+                            <source src="videos/whiteboard_ood_2_retain_success.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                </div>
+
+                <!-- OOD Comparison 3 -->
+                <div style="width: 100%; text-align: center; margin-bottom: 10px;">
+                    <span style="font-weight: bold; font-size: 1em;">Out-of-Distribution Scenario 3</span>
+                </div>
+                <div style="display: flex; justify-content: center; gap: 2%; margin-bottom: 30px;">
+                    <div style="flex: 1; max-width: 45%; text-align: center;">
+                        <div style="margin-bottom: 8px; font-weight: 600;">Task Finetuning (Failure)</div>
+                        <video controls autoplay loop muted playsinline style="width: 100%;">
+                            <source src="videos/whiteboard_ood_3_taskft_failure.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    <div style="flex: 1; max-width: 45%; text-align: center;">
+                        <div style="margin-bottom: 8px; font-weight: 600;">RETAIN (Success)</div>
+                        <video controls autoplay loop muted playsinline style="width: 100%;">
+                            <source src="videos/whiteboard_ood_3_retain_success.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -156,14 +277,169 @@
                 <div class="column">
                     <div class="content has-text-justified">
                         <p>
-                            TODO: quick summary of motivation for RETAIN.
+                            TODO: higher-level motivation for RETAIN (robot foundation models require adaptation,
+                            require lot of demos, etc.)
                         </p>
-                        <div style="display: flex; justify-content: center; gap: 1%; width: 90%; margin: 0 auto;">
-                            <img src="../images/retain_overfitting_3_envs.png" alt="">
-                        </div>
                     </div>
                 </div>
             </div>
+
+            <!-- Why Current Approaches Don't Work -->
+            <div style="margin-top: 40px;">
+                <h3 class="title is-4">Why Current Approaches Don't Work</h3>
+
+                <!-- Overfitting to Environments -->
+                <div style="margin-bottom: 40px;">
+                    <div class="custom-box" style="margin-bottom: 20px;">
+                        <div class="content has-text-justified">
+                            <p>
+                                <strong>Overfitting to Environment Configurations:</strong> Traditional task finetuning
+                                approaches tend to overfit to the specific environment configurations seen during
+                                training. When deployed to out-of-distribution scenarios with different object
+                                placements, lighting conditions, or scene layouts, these methods experience significant
+                                performance degradation. This brittleness limits the practical applicability of
+                                finetuned robot policies in real-world settings.
+                            </p>
+                        </div>
+                    </div>
+                    <div style="display: flex; justify-content: center; width: 90%; margin: 0 auto;">
+                        <img src="images/overfitting_envs.png" alt="Overfitting to specific environments"
+                            style="width: 100%;">
+                    </div>
+                </div>
+
+                <!-- Overfitting with Different Methods -->
+                <div style="margin-bottom: 40px;">
+                    <div class="custom-box" style="margin-bottom: 20px;">
+                        <div class="content has-text-justified">
+                            <p>
+                                <strong>Systematic Issue Across Methods:</strong> The overfitting problem is not unique
+                                to a single approach—various state-of-the-art finetuning methods exhibit similar failure
+                                modes when tested on out-of-distribution environments. This systematic challenge across
+                                different methodologies highlights the need for a fundamentally different approach to
+                                robust policy finetuning, which RETAIN addresses through parameter merging.
+                            </p>
+                        </div>
+                    </div>
+                    <div style="display: flex; justify-content: center; width: 90%; margin: 0 auto;">
+                        <img src="images/overfitting_methods.png" alt="Overfitting across different methods"
+                            style="width: 100%;">
+                    </div>
+                </div>
+
+                <!-- Tuning Gradient Steps and Learning Rate -->
+                <div style="margin-bottom: 40px;">
+                    <div class="custom-box" style="margin-bottom: 20px;">
+                        <div class="content has-text-justified">
+                            <p>
+                                <strong>Overfitting despite Tuning Gradient Steps and Learning Rate:</strong> Even when
+                                tuning the gradient steps and learning rate, the model still overfits to the
+                                in-distribution data.
+                                This shows that the overfitting problem is not due to the gradient steps or learning
+                                rate, but rather due to the model's inability to generalize to out-of-distribution data.
+                            </p>
+                        </div>
+                    </div>
+                    <div
+                        style="display: flex; flex-direction: column; align-items: center; width: 90%; margin: 0 auto; gap: 20px;">
+                        <img src="images/lr_ablation.png"
+                            alt="Overfitting despite Tuning Gradient Steps and Learning Rate" style="width: 100%;">
+                        <img src="images/lr_ablation_co_ft.png"
+                            alt="Overfitting despite Tuning Gradient Steps and Learning Rate" style="width: 100%;">
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container is-max-desktop">
+            <h2 class="title is-3">Method</h2>
+            <div class="columns">
+                <div class="column">
+                    <div class="content has-text-justified">
+                        <p>
+                            RETAIN introduces a novel approach to robust finetuning through parameter merging. By
+                            combining the generalization capabilities of pretrained models with task-specific
+                            adaptations, RETAIN achieves superior performance on both in-distribution and
+                            out-of-distribution scenarios.
+                        </p>
+                        <p>
+                            The key insight is to merge the parameters of a pretrained Vision-Language-Action (VLA)
+                            model with those of a finetuned model using a weighted combination controlled by a merging
+                            coefficient α. This allows us to retain the broad knowledge encoded in the pretrained
+                            weights while incorporating task-specific improvements from finetuning.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <!-- Mathematical Formulations -->
+            <div class="columns">
+                <div class="column">
+                    <div class="content has-text-justified">
+
+                        <p><strong>Behavior Cloning + Co-Finetuning</strong></p>
+                        <p>
+                            TODO: Talk about BC objective, as well as co-finetuning on pretraining data, etc.
+                        </p>
+
+                        <p><strong>Model Merging </strong></p>
+                        <div
+                            style="background-color: #f5f5f5; padding: 20px; border-radius: 5px; margin: 20px 0; text-align: center;">
+                            <p style="font-size: 1.2em; font-family: 'Times New Roman', serif;">
+                                θ<sub>merged</sub> = α · θ<sub>pretrained</sub> + (1 - α) · θ<sub>finetuned</sub>
+                            </p>
+                        </div>
+                        <p>
+                            where θ<sub>pretrained</sub> represents the pretrained model parameters,
+                            θ<sub>finetuned</sub> represents the parameters after task-specific finetuning, and α ∈ [0,
+                            1] controls the balance between generalization and task specialization.
+                        </p>
+
+                        <p><strong>Continual Task Adaptation</strong></p>
+                        <p>
+                            TODO: Talk about continual task adaptation, etc.
+                        </p>
+                        <img src="images/continual_merging.png" alt="Continual task adaptation" style="width: 100%;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container is-max-desktop">
+            <h2 class="title is-3">Results</h2>
+
+            <div class="content has-text-justified">
+                <p>
+                    RETAIN achieves <b>state-of-the-art performance</b> on robotic manipulation tasks while
+                    maintaining strong generalization to out-of-distribution scenarios. Our results demonstrate that
+                    parameter merging provides a simple yet effective approach to robust finetuning, significantly
+                    outperforming standard task finetuning methods that suffer from overfitting. Across diverse robotic
+                    tasks including manipulation, navigation, and dexterous control,
+                    <b>RETAIN consistently achieves superior out-of-distribution performance</b> compared to
+                    baseline methods. The parameter merging approach allows the policy to leverage both the broad
+                    knowledge from pretraining and task-specific adaptations, resulting in policies that are both
+                    specialized and robust. The plots below show comprehensive comparisons on two tasks with the DROID
+                    setup and 3 tasks in the LIBERO setup.
+                </p>
+            </div>
+
+            <div style="display: flex; justify-content: center; width: 90%; margin: 30px auto 40px auto;">
+                <img src="images/avg_droid_results.png" alt="Main DROID results comparison" style="width: 100%;">
+            </div>
+
+            <div style="display: flex; justify-content: center; width: 90%; margin: 0 auto 60px auto;">
+                <img src="images/libero_results.png" alt="Main LIBERO results comparison" style="width: 100%;">
+            </div>
+        </div>
     </section>
 
     <section class="section">
@@ -172,166 +448,98 @@
             <div class="columns">
                 <div class="column">
 
-                    <div class="custom-box" style="padding-bottom: 20px; margin-bottom: 20px;">
+                    <!-- Question 1: Does RETAIN scale with pretraining data? -->
+                    <div style="background-color: #e8f4f8; padding: 30px; border-radius: 10px; margin-bottom: 25px;">
                         <div class="content has-text-justified">
-                            <h3>
-                                Why do previous methods need to retain offline data?
-                            </h3>
+                            <h3>Does RETAIN scale with pretraining data?</h3>
                             <p>
-                                Training only on online experience during fine-tuning without offline data retention can
-                                <b>destroy how well the model fits offline data</b>
-                                due to the <b>distribution shift</b> between offline dataset and online rollout data:
-                                while TD-errors on the online data are comparable regardless of whether offline data is
-                                retained,
-                                TD-errors under the offline distribution increase noticeably when offline data is not
-                                retained.
+                                A key advantage of RETAIN is its ability to leverage the scale of pretraining data. We
+                                investigate how the quality and quantity of pretraining data impacts RETAIN's
+                                performance on downstream tasks. Our experiments demonstrate that RETAIN consistently
+                                benefits from larger and more diverse pretraining datasets, showing improved
+                                generalization to out-of-distribution environments as pretraining scale increases. This
+                                scaling behavior suggests that RETAIN can effectively harness the capabilities of
+                                large-scale VLA models.
                             </p>
                         </div>
                     </div>
-
                     <div
-                        style="display: flex; justify-content: center; gap: 1%; width: 90%; margin: 0 auto; margin-bottom: 40px;">
-                        <img src="../images/paper-images/wsrl/calql_different_mixing.png" style="width: 25%;"
-                            alt="Mixing Image">
-                        <img src="../images/paper-images/wsrl/calql_different_mixing_q_blowup.png" style="width: 25%;"
-                            alt="Q values Blowup">
-                        <img src="../images/paper-images/wsrl/calql_different_mixing_loss_blowup.png"
-                            style="width: 25%;" alt="TD Error Blowup">
-                        <img src="../images/paper-images/wsrl/calql_different_mixing_loss_online.png"
-                            style="width: 25%;" alt="TD Loss Online">
+                        style="display: flex; justify-content: center; width: 90%; margin: 0 auto; margin-bottom: 60px;">
+                        <img src="images/data_scaling.png" alt="RETAIN scaling with pretraining data"
+                            style="width: 100%;">
                     </div>
 
-                    <div class="custom-box" style="padding-bottom: 20px; margin-bottom: 20px;">
+                    <!-- Question 2: Can RETAIN be applied sequentially? -->
+                    <div style="background-color: #f0f8e8; padding: 30px; border-radius: 10px; margin-bottom: 25px;">
                         <div class="content has-text-justified">
-                            <h3>
-                                Key observation: Q-values diverge on a downward spiral. Why?
-                            </h3>
+                            <h3>Can RETAIN be applied sequentially?</h3>
                             <p>
-                                We observe that not only do Q-values diverge on the offline distribution, Q-values on
-                                the online distribution also go through underestimation at the onset of
-                                <i>no-retention</i> fine-tuning.
-                                We find that this <b>excessive underestimation is because of backups with
-                                    over-pessimistic TD-targets</b> during Q-value recalibration.
-                                See evidence and a mechanistic understanding of this <b>downward spiral</b> below.
+                                In practical robotics applications, policies often need to be adapted to multiple tasks
+                                sequentially. We explore whether RETAIN can be applied in a sequential manner, where a
+                                policy is first finetuned and merged for Task A, then further finetuned and merged for
+                                Task B, and so on. Our experiments demonstrate that RETAIN maintains its effectiveness
+                                across multiple sequential adaptation steps, successfully preventing catastrophic
+                                forgetting while accumulating task-specific knowledge. This opens up exciting
+                                possibilities for continual learning in robotic systems.
                             </p>
                         </div>
                     </div>
-
                     <div
-                        style="display: flex; justify-content: center; gap: 1%; width: 90%; margin: 0 auto; margin-bottom: 40px;">
-                        <img src="../images/paper-images/wsrl/downward-spiral-cql.png" style="width: 33%;"
-                            alt="Downward Spiral CQL">
-                        <img src="../images/paper-images/wsrl/downward-spiral-calql.png" style="width: 33%;"
-                            alt="Downward Spiral CalQL">
-                        <img src="../images/paper-images/wsrl/downward-spiral-iql.png" style="width: 33%;"
-                            alt="Downward Spiral IQL">
+                        style="display: flex; justify-content: center; width: 90%; margin: 0 auto; margin-bottom: 60px;">
+                        <img src="images/droid_continual_learning.png" alt="Sequential application of RETAIN"
+                            style="width: 100%;">
                     </div>
 
-                    <div
-                        style="display: flex; justify-content: center; gap: 1%; width: 90%; margin: 0 auto; margin-bottom: 40px;">
-                        <img src="../images/paper-images/wsrl/downward_spiral_intuition.png" style="width: 80%;"
-                            alt="Intuition for the downward spiral phenomenon">
-                    </div>
-
-                    <div class="content has-text-justified">
-                        <div class="custom-box" style="padding-bottom: 20px; margin-bottom: 20px;">
-                            <h3>
-                                Retaining offline data hurts asymptotic performance
-                            </h3>
+                    <!-- Question 3: What VLA modules matter most for merging? -->
+                    <div style="background-color: #fef3e8; padding: 30px; border-radius: 10px; margin-bottom: 25px;">
+                        <div class="content has-text-justified">
+                            <h3>What VLA modules matter most for merging?</h3>
                             <p>
-                                While retaining offline data appears to be crucial for stability at the beginning of
-                                fine-tuning for current fine-tuning methods,
-                                continuing to make updates on this offline data with an (pessimistic) offline RL
-                                algorithm <b>hurts asymptotic performance and efficiency</b>.
-                                Specifically, we find that offline RL fine-tuning that co-trains on offline data (e.g.
-                                CalQL) is substantially slower than online RL algorithms from scratch (e.g. RLPD).
+                                Vision-Language-Action models consist of multiple components including vision encoders,
+                                language encoders, and action decoders. We investigate which modules benefit most from
+                                parameter merging. Our analysis reveals that selectively merging different modules leads
+                                to varying performance profiles. Merging vision encoder parameters provides the
+                                strongest improvements for visual generalization, while merging action decoder
+                                parameters helps maintain task-specific precision. These findings enable more targeted
+                                merging strategies for different deployment scenarios.
                             </p>
                         </div>
-                        <div
-                            style="display: flex; justify-content: center; gap: 1%; width: 90%; margin: 0 auto; margin-bottom: 40px;">
-                            <img id="teaser" src="../images/paper-images/wsrl/calql_rlpd_compare.png"
-                                alt="System Diagram" width="100%">
+                    </div>
+                    <!-- First row: 2 images -->
+                    <div
+                        style="display: flex; justify-content: center; gap: 2%; width: 90%; margin: 0 auto; margin-bottom: 20px;">
+                        <img src="images/modality_wise_merging.png" style="width: 49%;" alt="Vision encoder merging">
+                        <img src="images/modality_average_over_L_mugs.png" style="width: 49%;"
+                            alt="Language encoder merging">
+                    </div>
+                    <!-- Second row: 1 image -->
+                    <div
+                        style="display: flex; justify-content: center; width: 90%; margin: 0 auto; margin-bottom: 60px;">
+                        <img src="images/ood_multimodal_merging.png" style="width: 60%;" alt="Action decoder merging">
+                    </div>
+
+                    <!-- Question 4: How much does the alpha parameter matter? -->
+                    <div style="background-color: #f4e8f8; padding: 30px; border-radius: 10px; margin-bottom: 25px;">
+                        <div class="content has-text-justified">
+                            <h3>How much does the alpha parameter matter?</h3>
+                            <p>
+                                The merging coefficient α controls the trade-off between retaining pretrained knowledge
+                                and incorporating task-specific adaptations. We perform an ablation study varying α from
+                                0 (pure finetuned model) to 1 (pure pretrained model). Our results show that
+                                intermediate values of α (typically between 0.3 and 0.7) achieve the best balance,
+                                maintaining strong in-distribution performance while significantly improving
+                                out-of-distribution robustness. Interestingly, the optimal α varies slightly across
+                                different tasks and pretraining scales.
+                            </p>
                         </div>
-
-
                     </div>
-    </section>
-
-    <section class="section">
-        <div class="container is-max-desktop">
-            <h2 class="title is-3">Method</h2>
-            <div
-                style="display: flex; justify-content: center; gap: 1%; width: 90%; margin: 0 auto; margin-bottom: 40px;">
-                <img src="../images/paper-images/wsrl/algorithm.png" style="width: 80%;" alt="WSRL algorithm">
-            </div>
-        </div>
-
-        <div class="container is-max-desktop">
-            <div class="columns">
-                <div class="column">
-                    <div class="content has-text-justified">
-                        <p>
-                            Warm-start RL (<b>WSRL</b>) is a simple and practical recipe that obtains strong fine-tuning
-                            results
-                            and quickly adapts online without using the offline dataset during online updates.
-                            It is composed of three phases:
-                        </p>
-                        <ol>
-                            <li><b>Initialize</b>: Pre-train of any offline RL algorithm, and initialize the pre-trained
-                                policy and value function at the start of fine-tuning.</li>
-                            <li> <b>Warmup</b>: WSRL uses the first 𝐾 online steps to collect a few rollouts using the
-                                frozen offline RL policy to
-                                simulate the retention of offline data. Such on-policy data bridges the distribution
-                                shift from the offline dataset and the online rollouts, and prevents Q-value divergence
-                                and the downward-spiral phenomenon. </li>
-                            <li> <b>Online RL</b>: After warmup, WSRL updates with a standard online RL approach with no
-                                constraints or pessimism. We further accelerate online learning with high update-to-data
-                                ratios. </li>
-                        </ol>
+                    <div
+                        style="display: flex; justify-content: center; width: 90%; margin: 0 auto; margin-bottom: 60px;">
+                        <img src="images/avg_ood_vs_alpha.png" alt="Alpha parameter sensitivity analysis"
+                            style="width: 100%;">
                     </div>
+
                 </div>
-            </div>
-    </section>
-
-    <section class="section">
-        <div class="container is-max-desktop">
-            <h2 class="title is-3">Results</h2>
-
-            <div class="custom-box" style="padding-bottom: 20px; margin-bottom: 20px;">
-                <div class="content has-text-justified">
-                    <p>
-                        In <b>no-retention fine-tuning</b>, WSRL fine-tunes efficiently and <b>greatly outperforms all
-                            previous algorithms</b>,
-                        which often fail to recover from an initial dip in performance. JSRL, the closest baseline, uses
-                        a data-collection technique similar to warmup.
-                        Please refer to the <a href="https://arxiv.org/pdf/2412.07762" target="_blank">paper</a> for
-                        ablation experiments showing the importance of (1) warmup, (2) using a online RL algorithm for
-                        fine-tuning,
-                        and (3) initializing with the pre-trained policy and value function.
-                    </p>
-                </div>
-            </div>
-
-            <div
-                style="display: flex; justify-content: center; gap: 1%; width: 100%; margin: 0;  padding-bottom: 40px;">
-                <img id="teaser" src="../images/paper-images/wsrl/nrf_finetune_results.png" alt="Nrf comparison"
-                    width="100%">
-            </div>
-
-            <div class="custom-box" style="padding-bottom: 20px; margin-bottom: 20px;">
-                <div class="content has-text-justified">
-                    <p>
-                        Even compared to methods that <b>do retain offline data</b> and therefore has access to more
-                        information during fine-tuning,
-                        <b>WSRL is able to fine-tune faster or competitively without retaining offline training
-                            data</b>.
-                    </p>
-                </div>
-            </div>
-
-            <div style="display: flex; justify-content: center; gap: 1%; width: 100%; margin: 0;">
-                <img id="teaser" src="../images/paper-images/wsrl/baselines_compare.png" alt="Nrf comparison"
-                    width="100%">
             </div>
         </div>
     </section>
@@ -340,12 +548,12 @@
         <div class="container is-max-desktop">
             <h2 class="title">BibTeX</h2>
             <pre>
-      <code>@article{zhou2024efficient,
-        author = {Zhiyuan Zhou and Andy Peng and Qiyang Li and Sergey Levine and Aviral Kumar},
-        title  = {Efficient Online Reinforcement Learning Fine-Tuning Need Not Retain Offline Data},
+      <code>@article{yadav2025retain,
+        author = {Yajat Yadav and Zhiyuan Zhou and Andrew Wagenmaker and Karl Pertsch and Sergey Levine},
+        title  = {Robust Finetuning of Vision-Language-Action Robot Policies via Parameter Merging},
         conference = {arXiv Pre-print},
-        year = {2024},
-        url = {http://arxiv.org/abs/2412.07762},
+        year = {2025},
+        url = {https://arxiv.org/abs/2512.08333},
       }
       </code>
     </pre>
