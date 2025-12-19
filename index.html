@@ -67,7 +67,7 @@
                         <div class="is-size-5 publication-authors">
                             <span class="author-block"><sup>
                                     <font size="-0.1">
-                                </sup>UC Berkeley</font></span>
+                                </sup>UC Berkeley,</font></span>
                             <span class="author-block"><sup>
                                     <font size="-0.1">*
                                 </sup>Core Contributors </font></span>
@@ -113,14 +113,12 @@
                 <h2 class="title is-2 has-text-centered">TL;DR</h2>
                 <div class="content has-text-centered">
                     <p class="is-size-5">
-                        <strong>Generalist robot policies overfit severely</strong> when finetuned on
-                        limited demonstrations, losing their broad capabilities and failing to generalize to simple
-                        variations of the target task. We introduce <strong>RETAIN (Robust finE-tuning wiTh pArameter
-                            mergINg)</strong>,
-                        which <strong>simply interpolates the weights</strong> of pretrained and finetuned models.
-                        RETAIN achieves <strong>~40% higher OOD success rates</strong> on real robots while
-                        <strong>retaining generalist abilities</strong> and enabling <strong>continual skill
-                            acquisition</strong>.
+                        Generalist robot policies <strong>overfit severely</strong> when finetuned to a target task 
+                        with limited demonstrations: not only do they fail to generalize to simple variations of the target
+                        task, they lose their generalist capabilities as well.
+                        We find that <strong>simply interpolating the weights of pretrained and finetuned models</strong>
+                        can retain generalist abilities, and further, transfer the generalist knowledge to the target task to generalize to
+                        more complex variations of it. We introduce a simple method based on this called <strong>RETAIN</strong>.
                     </p>
                 </div>
             </div>
@@ -129,31 +127,46 @@
 
     <section class="section">
         <div class="container is-max-desktop">
-            <h2 class="title is-3">Robot Results</h2>
+            <h2 class="title is-3">RETAIN Enables Robust Finetuning</h2>
             <div class="content has-text-justified">
                 <p>
-                    RETAIN allows for robust, generalizable finetuning of vision-language-action (VLA) robot policies.
-                    Below, we demonstrate
-                    RETAIN's performance on two different robotic manipulation tasks, showing both in-distribution
-                    success and out-of-distribution generalization compared to standard <strong>supervised finetuning
-                        (SFT)</strong>.
+                    <div style="background-color: #fef3e8; padding: 30px; border-radius: 10px; margin-bottom: 20px;">
+                        In practice, when we finetune a policy, we don't simply want it to work only in the setting where
+                        we collected the finetuning demonstration, but for it to complete the demonstrated task in a variety of contexts
+                        or scenes. Therefore, <strong>we evaluate the performance of the finetuned policy in three settings</strong>:
+
+                        <ul>
+                            <li><strong>Target task in-distribution (ID):</strong> measures policy performance on the exact task observed in the finetuning dataset.</li>
+                            <li><strong>Target task out-of-distribution (OOD):</strong> measures the performance on the target task, in scenarios not
+                                observed in the finetuning dataset, such as changes in object instances, backgrounds, lighting conditions and
+                                camera angles. This measures the robustness of the finetuned policy.</li>
+                            <li>
+                                <strong>Generalist tasks:</strong> measures policy performance on tasks other than the target task, but for which we would
+                                expect the generalist policy to perform reasonably. This measures how well the finetuned policy retains
+                                generalist capabilities from the pretrained model.
+                            </li>
+                        </ul>
+                    </div>
+
+                    We find that RETAIN achives robust and generalizable finetuning of vision-language-action (VLA) robot policies.
+                    See two example tasks below on how RETAIN compares to SFT (supervised finetuning of all parameters on the target task) on the three evaluation settings.
+
                 </p>
             </div>
 
             <!-- Plates Task Section -->
             <div style="margin-top: 40px; margin-bottom: 60px;">
-                <h3 class="title is-4">Plates Task</h3>
+                <h3 class="title is-4">Example Task 1: Placing Plates in a Dish Rack</h3>
                 <div class="content has-text-justified" style="margin-bottom: 20px;">
                     <p>
-                        In this task, the robot must precisely grab a plate and insert it into the grooves of a dish
-                        rack. We first show successful SFT on the in-distribution environment, followed by
-                        comparisons of SFT failures versus RETAIN successes on out-of-distribution evaluations.
+                        In this task, the robot must precisely grab a plate and insert it vertically into the grooves of a dish
+                        rack.
                     </p>
                 </div>
 
                 <!-- Single success video -->
                 <div style="width: 100%; text-align: center; margin-bottom: 10px;">
-                    <span style="font-weight: bold; font-size: 1em;"> In-Distribution: SFT Success</span>
+                    <span style="font-weight: bold; font-size: 1em;"> In-Distribution: SFT succeeds</span>
                 </div>
                 <div style="width: 100%; margin-bottom: 40px; display: flex; justify-content: center;">
                     <video controls autoplay loop muted playsinline class="video-success"
@@ -162,6 +175,13 @@
                         Your browser does not support the video tag.
                     </video>
                 </div>
+                <div class="content has-text-justified" style="margin-bottom: 20px;">
+                    <p>
+                        In in-distribution evaluation (evaluation on the exact task observed in the finetuning dataset), normal SFT succeeds as expected.
+                        However, <strong>when we evaluate the policy on out-of-distribution scenarios</strong> (some variations of the same semantic task, see examples below), <strong> SFT policies fail to generalize but 
+                        RETAIN policies does</strong>.
+                    </p>
+                </div>
 
                 <!-- OOD Comparison 1 -->
                 <div style="width: 100%; text-align: center; margin-bottom: 10px;">
@@ -169,14 +189,14 @@
                 </div>
                 <div style="display: flex; justify-content: center; gap: 2%; margin-bottom: 30px;">
                     <div style="flex: 1; max-width: 45%; text-align: center;">
-                        <div style="margin-bottom: 8px; font-weight: 600;">SFT Failure</div>
+                        <div style="margin-bottom: 8px; font-weight: 600;">SFT fails</div>
                         <video controls autoplay loop muted playsinline class="video-failure" style="width: 100%;">
                             <source src="videos_sped_up/plates_ood1_fail.mp4" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
                     </div>
                     <div style="flex: 1; max-width: 45%; text-align: center;">
-                        <div style="margin-bottom: 8px; font-weight: 600;">RETAIN Success</div>
+                        <div style="margin-bottom: 8px; font-weight: 600;">RETAIN succeeds</div>
                         <video controls autoplay loop muted playsinline class="video-success" style="width: 100%;">
                             <source src="videos_sped_up/plates_ood1_success.mp4" type="video/mp4">
                             Your browser does not support the video tag.
@@ -190,14 +210,14 @@
                 </div>
                 <div style="display: flex; justify-content: center; gap: 2%; margin-bottom: 30px;">
                     <div style="flex: 1; max-width: 45%; text-align: center;">
-                        <div style="margin-bottom: 8px; font-weight: 600;">SFT Failure</div>
+                        <div style="margin-bottom: 8px; font-weight: 600;">SFT fails</div>
                         <video controls autoplay loop muted playsinline class="video-failure" style="width: 100%;">
                             <source src="videos_sped_up/plates_ood2_fail_bad.mp4" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
                     </div>
                     <div style="flex: 1; max-width: 45%; text-align: center;">
-                        <div style="margin-bottom: 8px; font-weight: 600;">RETAIN Success</div>
+                        <div style="margin-bottom: 8px; font-weight: 600;">RETAIN succeeds</div>
                         <video controls autoplay loop muted playsinline class="video-success" style="width: 100%;">
                             <source src="videos_sped_up/plates_ood2_success.mp4" type="video/mp4">
                             Your browser does not support the video tag.
@@ -211,14 +231,14 @@
                 </div>
                 <div style="display: flex; justify-content: center; gap: 2%; margin-bottom: 30px;">
                     <div style="flex: 1; max-width: 45%; text-align: center;">
-                        <div style="margin-bottom: 8px; font-weight: 600;">SFT Failure</div>
+                        <div style="margin-bottom: 8px; font-weight: 600;">SFT fails</div>
                         <video controls autoplay loop muted playsinline class="video-failure" style="width: 100%;">
                             <source src="videos_sped_up/plates_ood3_fail_cropped.mp4" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
                     </div>
                     <div style="flex: 1; max-width: 45%; text-align: center;">
-                        <div style="margin-bottom: 8px; font-weight: 600;">RETAIN Success</div>
+                        <div style="margin-bottom: 8px; font-weight: 600;">RETAIN succeeds</div>
                         <video controls autoplay loop muted playsinline class="video-success" style="width: 100%;">
                             <source src="videos_sped_up/plates_ood3_success_cropped.mp4" type="video/mp4">
                             Your browser does not support the video tag.
@@ -230,18 +250,17 @@
 
             <!-- Whiteboards Task Section -->
             <div style="margin-top: 40px; margin-bottom: 60px;">
-                <h3 class="title is-4">Whiteboard Task</h3>
+                <h3 class="title is-4">Example Task 2: Wiping Whiteboard</h3>
                 <div class="content has-text-justified" style="margin-bottom: 20px;">
                     <p>
-                        This task involves grabbing an eraser and wiping text off a whiteboard. Similar to the plates
-                        task, we demonstrate in-distribution success followed
-                        by out-of-distribution comparisons showing RETAIN's robustness.
+                        This task involves grabbing an eraser and wiping text off a whiteboard. Similarly,
+                        we find that SFT policies also fail to generalize to OOD variations of the task, but RETAIN policies succeed.
                     </p>
                 </div>
 
                 <!-- Single success video -->
                 <div style="width: 100%; text-align: center; margin-bottom: 10px;">
-                    <span style="font-weight: bold; font-size: 1em;"> In-Distribution: SFT Success</span>
+                    <span style="font-weight: bold; font-size: 1em;"> In-Distribution: SFT succeeds</span>
                 </div>
                 <div style="width: 100%; margin-bottom: 40px; display: flex; justify-content: center;">
                     <video controls autoplay loop muted playsinline class="video-success"
@@ -257,14 +276,14 @@
                 </div>
                 <div style="display: flex; justify-content: center; gap: 2%; margin-bottom: 30px;">
                     <div style="flex: 1; max-width: 45%; text-align: center;">
-                        <div style="margin-bottom: 8px; font-weight: 600;">SFT Failure</div>
+                        <div style="margin-bottom: 8px; font-weight: 600;">SFT fails</div>
                         <video controls autoplay loop muted playsinline class="video-failure" style="width: 100%;">
                             <source src="videos_sped_up/whiteboard_ood_corner_fail.mp4" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
                     </div>
                     <div style="flex: 1; max-width: 45%; text-align: center;">
-                        <div style="margin-bottom: 8px; font-weight: 600;">RETAIN Success</div>
+                        <div style="margin-bottom: 8px; font-weight: 600;">RETAIN succeeds</div>
                         <video controls autoplay loop muted playsinline class="video-success" style="width: 100%;">
                             <source src="videos_sped_up/whiteboard_ood_corner_success.mp4" type="video/mp4">
                             Your browser does not support the video tag.
@@ -278,14 +297,14 @@
                 </div>
                 <div style="display: flex; justify-content: center; gap: 2%; margin-bottom: 30px;">
                     <div style="flex: 1; max-width: 45%; text-align: center;">
-                        <div style="margin-bottom: 8px; font-weight: 600;">SFT Failure</div>
+                        <div style="margin-bottom: 8px; font-weight: 600;">SFT fails</div>
                         <video controls autoplay loop muted playsinline class="video-failure" style="width: 100%;">
                             <source src="videos_sped_up/whiteboard_ood_table_fail.mp4" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
                     </div>
                     <div style="flex: 1; max-width: 45%; text-align: center;">
-                        <div style="margin-bottom: 8px; font-weight: 600;">RETAIN Success</div>
+                        <div style="margin-bottom: 8px; font-weight: 600;">RETAIN succeeds</div>
                         <video controls autoplay loop muted playsinline class="video-success" style="width: 100%;">
                             <source src="videos_sped_up/whiteboard_ood_table_success.mp4" type="video/mp4">
                             Your browser does not support the video tag.
@@ -299,14 +318,14 @@
                 </div>
                 <div style="display: flex; justify-content: center; gap: 2%; margin-bottom: 30px;">
                     <div style="flex: 1; max-width: 45%; text-align: center;">
-                        <div style="margin-bottom: 8px; font-weight: 600;">SFT Failure</div>
+                        <div style="margin-bottom: 8px; font-weight: 600;">SFT fails</div>
                         <video controls autoplay loop muted playsinline class="video-failure" style="width: 100%;">
                             <source src="videos_sped_up/whiteboard_ood_room_fail.mp4" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
                     </div>
                     <div style="flex: 1; max-width: 45%; text-align: center;">
-                        <div style="margin-bottom: 8px; font-weight: 600;">RETAIN Success</div>
+                        <div style="margin-bottom: 8px; font-weight: 600;">RETAIN succeeds</div>
                         <video controls autoplay loop muted playsinline class="video-success" style="width: 100%;">
                             <source src="videos_sped_up/whiteboard_ood_room_success.mp4" type="video/mp4">
                             Your browser does not support the video tag.
@@ -314,7 +333,87 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Generalist Evaluations Grid -->
+            <div style="margin-top: 50px;">
+                <h3 class="title is-4">RETAIN Preserves Generalist Capabilities</h3>
+                <div class="content has-text-justified" style="margin-bottom: 25px;">
+                    <p>
+                        In addition to achieving robust generalization to OOD variations of the target task, RETAIN also preserves the generalist capabilities of the pretrained model.
+                        In the following generalist evaluations, we evaluate the RETAIN policy on tasks from the pretraining distribution.
+                    </p>
+                </div>
+
+                <!-- 5x2 Video Grid -->
+                <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; width: 100%;">
+                    <div style="text-align: center;">
+                        <video controls autoplay loop muted playsinline class="video-success" style="width: 100%;">
+                            <source src="videos_sped_up/generalist/gen_1.mp4" type="video/mp4">
+                        </video>
+                        <div style="margin-top: 8px;">put the spoon in the dishrack</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <video controls autoplay loop muted playsinline class="video-success" style="width: 100%;">
+                            <source src="videos_sped_up/generalist/gen_2.mp4" type="video/mp4">
+                        </video>
+                        <div style="margin-top: 8px;">put the marker in the cup</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <video controls autoplay loop muted playsinline class="video-success" style="width: 100%;">
+                            <source src="videos_sped_up/generalist/gen_3.mp4" type="video/mp4">
+                        </video>
+                        <div style="margin-top: 8px;">wipe the table</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <video controls autoplay loop muted playsinline class="video-success" style="width: 100%;">
+                            <source src="videos_sped_up/generalist/gen_4.mp4" type="video/mp4">
+                        </video>
+                        <div style="margin-top: 8px;">close the drawer</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <video controls autoplay loop muted playsinline class="video-success" style="width: 100%;">
+                            <source src="videos_sped_up/generalist/gen_5.mp4" type="video/mp4">
+                        </video>
+                        <div style="margin-top: 8px;">put the tape in the purple bowl</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <video controls autoplay loop muted playsinline class="video-success" style="width: 100%;">
+                            <source src="videos_sped_up/generalist/gen_6.mp4" type="video/mp4">
+                        </video>
+                        <div style="margin-top: 8px;">put the plate on the table</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <video controls autoplay loop muted playsinline class="video-success" style="width: 100%;">
+                            <source src="videos_sped_up/generalist/gen_7.mp4" type="video/mp4">
+                        </video>
+                        <div style="margin-top: 8px;">put the black sponge in the blue bowl</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <video controls autoplay loop muted playsinline class="video-success" style="width: 100%;">
+                            <source src="videos_sped_up/generalist/gen_8.mp4" type="video/mp4">
+                        </video>
+                        <div style="margin-top: 8px;">put the stapler on the notebook</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <video controls autoplay loop muted playsinline class="video-success" style="width: 100%;">
+                            <source src="videos_sped_up/generalist/gen_9.mp4" type="video/mp4">
+                        </video>
+                        <div style="margin-top: 8px;">put the watermelon in the purple bowl</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <video controls autoplay loop muted playsinline class="video-success" style="width: 100%;">
+                            <source src="videos_sped_up/generalist/gen_10.mp4" type="video/mp4">
+                        </video>
+                        <div style="margin-top: 8px;">put the red bottle in the black bowl</div>
+                    </div>
+                </div>
+            </div>
         </div>
+
+        </div>
+    </section>
+
+
     </section>
 
     <section class="section">
@@ -324,18 +423,14 @@
                 <div class="column">
                     <div class="content has-text-justified">
                         <p class="is-size-5">
-                            Recent <strong>generalist robot policies</strong> trained on large, diverse datasets have
-                            demonstrated
-                            remarkable capabilities across varied environments, objects, and tasks. However, they still
-                            <strong>require adaptation</strong> for new downstream tasks or robot systems. While prior
-                            work has
-                            shown that finetuning with tens or hundreds of hours of data can yield robust policies,
-                            existing finetuning approaches struggle in low-data (~100 demos) regimes: they
+                            Generalist robot policies have demonstrated strong
+                            capabilities across varied environments, objects, and tasks. However, they still
+                            <strong>require adaptation</strong> for new downstream tasks or robot systems. 
+                            Naive finetuning approaches suffer from <strong>overfitting</strong> and
                             <strong>fail to preserve the pretrained model's generality</strong> and
                             <strong>cannot robustly generalize</strong> beyond the narrow conditions present in the
                             limited finetuning dataset. This creates a critical need for methods that can
-                            <strong>leverage broad pretrained competencies to enable learning generalized skills from
-                                narrow datasets</strong>.
+                            <strong>leverage broad pretrained competencies to enable learning generalized skills</strong>.
                         </p>
                     </div>
                 </div>
@@ -343,20 +438,20 @@
 
             <!-- Why Current Approaches Don't Work -->
             <div style="margin-top: 40px;">
-                <h3 class="title is-5">Why Current Finetuning Approaches Don't Work</h3>
+                <h3 class="title is-5">Naive Finetuning Suffers from Overfitting</h3>
 
                 <!-- Overfitting to Environments -->
                 <div>
                     <div class="custom-box" style="margin-bottom: 20px;">
                         <div class="content has-text-justified">
                             <p>
-                                <strong>Overfitting across Environments:</strong> Standard SFT (training all parameters
-                                of the model on the target task)
-                                suffers from this overfitting acoss environments. The plot below highlights the large
-                                gap between ID and OOD performance, as well as the gradual degradation of generalist
-                                capability, as we finetune a VLA on 3 different LIBERO tasks. These issues persist
-                                despite extensive tuning of hyperparameters like the learning rate schedule (see paper
-                                for more details).
+                                As an example, we finetune a VLA on 3 different LIBERO tasks with standard SFT finetuning, training
+                                all parameters of the model on the target task.
+                                While the ID performance improves with gradient updates, the Generalist performance drastically degrades 
+                                as we finetune for longer. This shows that naive finetuning has overfitted the model to the exact dataset distribution,
+                                and suffers from catastrophic forgetting of pretraining abilities.
+                                Moreover, there is a large gap between ID and OOD performance, suggesting the model has failed to generalize 
+                                to small variations of the target task because of overfitting.
                             </p>
                         </div>
                     </div>
@@ -371,8 +466,8 @@
 
     <section class="section">
         <div class="container is-max-desktop">
-            <h2 class="title is-3">Method</h2>
-            <div class="columns">
+            <h2 class="title is-3">A Simple Solution: RETAIN</h2>
+            <!-- <div class="columns">
                 <div class="column">
                     <div class="content has-text-justified">
                         <p>
@@ -391,7 +486,7 @@
                         </p>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
 
 
@@ -405,22 +500,17 @@
 
 
                         <p>
+                            We can combine the pretrained model \(\theta_{pre}\) and the finetuned model \(\theta_{ft}\) directly in weight space with linear interpolation.
+                            Intuitively, the merged model \(\tilde{\theta}\) can <strong> combine generalization capabilities of the pretrained model with the 
+                            task-specific adaptation of the finetuned model</strong> to robustly learn a more general version of the target task.
+
                             where \(\theta_{pre}\) represents the pretrained model parameters,
                             \(\theta_{ft}\) represents the parameters after task-specific finetuning, and \(\alpha\) ∈
                             [0,
                             1] controls the balance between generalization and task specialization.
                         </p>
 
-                        <p><strong>Finetuning Setting</strong></p>
-                        <!-- <p>
-                            For finetuning the model on the target task, we use the standard behavior cloning (BC)
-                            objective:
-                            $$L_{BC}(\theta; \mathcal{D}) = - \frac{1}{|\mathcal{D}|} \sum_{(s_t, a_t, T) \in
-                            \mathcal{D}} \log \pi_\theta(a_t | s_t, T)$$
-                            where \(\mathcal{D}\) is the finetuning dataset and \(\pi_\theta\) is the policy
-                            parameterized by
-                            \(\theta\).
-                        </p> -->
+                        <p><strong>Co-Finetuning</strong></p>
                         <p>
                             We consider two finetuning settings: <strong>task-finetuning (task-FT)</strong>,
                             where we finetune the entire model on a target task dataset \(\mathcal{D}_{\tau}\), and
@@ -428,15 +518,18 @@
                                 (co-FT)</strong>, where we finetune on a mix of the target task dataset
                             \(\mathcal{D}_{\tau}\) and the
                             pretraining dataset \(\mathcal{D}_{pre}\).
+                            We find that when we have access to the pretraining data, model merging with co-finetuning (RETAIN-co-FT) outperforms model mergine in the task-FT setting (RETAIN-task-FT).
                         </p>
-                        <ul>
-                            <li>Using model merging with task-FT, we call our method <strong>RETAIN-task-FT</strong>.
-                            </li>
-                            <li>Using model merging with co-FT, we call our method <strong>RETAIN-co-FT</strong>.</li>
-                        </ul>
 
+                        <p><strong>Contiual Task Adaptation</strong></p>
+                        <p>
+                            we can use RETAIN to sequentially add tasks into a pretrained checkpoint by iteratively merging finetuned weights into
+the base model and continuing to finetune from the merged checkpoint. This is done by the following formula:
+                        </p>
 
-
+                        <div style="display: flex; justify-content: center; width: 100%; margin: 20px auto;">
+                            <img src="images/continual_merging.png" alt="Continual task adaptation" style="width: 60%;">
+                        </div>
 
                     </div>
                 </div>
@@ -448,7 +541,7 @@
         <div class="container is-max-desktop">
             <h2 class="title is-3">Results</h2>
 
-            <div class="content has-text-justified">
+            <!-- <div class="content has-text-justified">
                 <p>
                     RETAIN achieves <b>state-of-the-art performance</b> on robotic manipulation tasks when it comes to
                     maintaining strong generalization to out-of-distribution scenarios, as well as retaining generalist
@@ -459,66 +552,20 @@
                     <b>RETAIN consistently achieves superior out-of-distribution performance</b> compared to
                     baseline methods.
                 </p>
-            </div>
+            </div> -->
 
+            <div style="background-color: #e8f4f8; padding: 30px; border-radius: 10px; margin-bottom: 25px;">
+                <div class="content has-text-justified">
+                    <h3>RETAIN Performance on DROID</h3>
+                    <p>
+                        On two DROID real robot tasks, RETAIN consistently achieves superior out-of-distribution and generalistperformance compared to the baseline methods, while being comparable in in-distribution performance.
+                    </p>
+                </div>
+            </div>
             <div style="display: flex; justify-content: center; width: 100%; margin: 30px auto 30px auto;">
                 <img src="images/avg_droid_results.png" alt="Main DROID results comparison" style="width: 100%;">
             </div>
 
-            <!-- Generalist Evaluations Grid -->
-            <div style="margin-top: 50px;">
-                <h3 class="title is-4">Generalist Task Retention</h3>
-                <div class="content has-text-justified" style="margin-bottom: 25px;">
-                    <p>
-                        Beyond excelling at OOD variations of the target tasks, RETAIN successfully preserces the
-                        pretrained
-                        model's general capabilities. Below is a sample of successful generalist evaluations performed
-                        by RETAIN,
-                        demonstrating its ability to execute diverse manipulation tasks from the original DROID
-                        pretraining distribution.
-                    </p>
-                </div>
-
-                <!-- 5x2 Video Grid -->
-                <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; width: 100%;">
-                    <video controls autoplay loop muted playsinline class="video-success" style="width: 100%;">
-                        <source src="videos_sped_up/generalist/gen_1.mp4" type="video/mp4">
-                    </video>
-                    <video controls autoplay loop muted playsinline class="video-success" style="width: 100%;">
-                        <source src="videos_sped_up/generalist/gen_2.mp4" type="video/mp4">
-                    </video>
-                    <video controls autoplay loop muted playsinline class="video-success" style="width: 100%;">
-                        <source src="videos_sped_up/generalist/gen_3.mp4" type="video/mp4">
-                    </video>
-                    <video controls autoplay loop muted playsinline class="video-success" style="width: 100%;">
-                        <source src="videos_sped_up/generalist/gen_4.mp4" type="video/mp4">
-                    </video>
-                    <video controls autoplay loop muted playsinline class="video-success" style="width: 100%;">
-                        <source src="videos_sped_up/generalist/gen_5.mp4" type="video/mp4">
-                    </video>
-                    <video controls autoplay loop muted playsinline class="video-success" style="width: 100%;">
-                        <source src="videos_sped_up/generalist/gen_6.mp4" type="video/mp4">
-                    </video>
-                    <video controls autoplay loop muted playsinline class="video-success" style="width: 100%;">
-                        <source src="videos_sped_up/generalist/gen_7.mp4" type="video/mp4">
-                    </video>
-                    <video controls autoplay loop muted playsinline class="video-success" style="width: 100%;">
-                        <source src="videos_sped_up/generalist/gen_8.mp4" type="video/mp4">
-                    </video>
-                    <video controls autoplay loop muted playsinline class="video-success" style="width: 100%;">
-                        <source src="videos_sped_up/generalist/gen_9.mp4" type="video/mp4">
-                    </video>
-                    <video controls autoplay loop muted playsinline class="video-success" style="width: 100%;">
-                        <source src="videos_sped_up/generalist/gen_10.mp4" type="video/mp4">
-                    </video>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="section">
-        <div class="container is-max-desktop ">
-            <h2 class="title is-3">Takeaways </h2>
             <div class="columns">
                 <div class="column">
 
@@ -527,18 +574,8 @@
                         <div class="content has-text-justified">
                             <h3>RETAIN Scales with Pretraining Data</h3>
                             <p>
-                                How well does RETAIN do when the pretraining model contains differing amounts of
-                                generalist knowledge, as induced by different amounts of pretraining data? To study
-                                this, we evaluate RETAIN-co-FT initialized with three different pretrained models: 1)
-                                trained on a
-                                subset of DROID, 2) trained on all of DROID, and 3) trained on all of DROID plus a large
-                                dataset from Physical Intelligence (PI).
-                            </p>
-                            <p>
-                                Our experiments demonstrate that RETAIN scales with
-                                the amount of pretraining data, and can better “transfer” generalist knowledge from the
-                                pretrained model to new scenes when the pretrained model is more general. The plots
-                                below show the results averaged over the two tasks in the DROID evaluation.
+                                RETAIN helps OOD generalization much more when the pretrained model is trained on more data,
+                                and therefore has more generalist capabilities for ``merging''.
                             </p>
                         </div>
                     </div>
@@ -551,9 +588,9 @@
                     <!-- Question 2: Can RETAIN be applied sequentially? -->
                     <div style="background-color: #f0f8e8; padding: 30px; border-radius: 10px; margin-bottom: 25px;">
                         <div class="content has-text-justified">
-                            <h3>RETAIN can be applied sequentially</h3>
+                            <h3>RETAIN Enables Continual Learning of Tasks</h3>
 
-                            <p>
+                            <!-- <p>
                                 We extend the model merging above to enable continual task adaptation. This is done by
                                 sequentially
                                 merging the pretrained model with the finetuned model after each task.
@@ -563,7 +600,7 @@
                                 $$
                                 where \(\theta_{ft, n}\) represents the parameters
                                 after finetuning the merged model \(\tilde{\theta}_{n-1}\) on the \(n\)-th task.
-                            </p>
+                            </p> -->
                             <!-- <img src="images/continual_merging.png" alt="Continual task adaptation"
                                 style="width: 100%;"> -->
 
@@ -586,9 +623,8 @@
                         <div class="content has-text-justified">
                             <h3>Language Parameters Matter Most for Merging</h3>
                             <p>
-                                Vision-Language-Action models consist of a vision encoder (v), language encoder (l), and
-                                often an action expert (a). To study the advantages of independtely merging these
-                                different parameter groups, we extend the RETAIN merging formula to the following:
+                                Vision-Language-Action models consist of a vision encoder (v), language model backbone (l), and
+                                often an action expert (a). We study the effect of merging different parameter groups on performance:
                             </p>
 
                             <p> $$
@@ -626,7 +662,7 @@
                             </p>
 
                             <p> These results suggest that during model merging, it may suffice to only merge the
-                                parameters of the language model backbone (\(\alpha_l < 1\)). To validate this
+                                parameters of the language model backbone (\(\alpha_l < 1\), \(\alpha_v = \alpha_a = 1\)). To validate this
                                     hypothesis, we compare the OOD performance of merging all parameters with RETAIN to
                                     only merging language model parameters on 3 LIBERO tasks. The results are shown in
                                     the bar chart below.</p>
