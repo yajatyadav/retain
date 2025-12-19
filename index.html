@@ -178,7 +178,7 @@
                     <p>
                         In in-distribution evaluation (evaluation on the exact task observed in the finetuning dataset), normal SFT succeeds as expected.
                         However, <strong>when we evaluate the policy on out-of-distribution scenarios</strong> (some variations of the same semantic task, see examples below), <strong> SFT policies fail to generalize but 
-                        RETAIN policies does</strong>.
+                        RETAIN policies do</strong>.
                     </p>
                 </div>
 
@@ -422,9 +422,9 @@
                 <div class="column">
                     <div class="content has-text-justified">
                         <p class="is-size-5">
-                            Generalist robot policies have demonstrated strong
-                            capabilities across varied environments, objects, and tasks. However, they still
-                            <strong>require adaptation</strong> for new downstream tasks or robot systems. 
+                            Generalist robot policies have strong
+                            capabilities, but still
+                            <strong>require adaptation</strong> for new downstream tasks. 
                             Naive finetuning approaches suffer from <strong>overfitting</strong> and
                             <strong>fail to preserve the pretrained model's generality</strong> and
                             <strong>cannot robustly generalize</strong> beyond the narrow conditions present in the
