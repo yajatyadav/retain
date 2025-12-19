@@ -95,18 +95,17 @@
         </div>
     </section>
 
-
-    <section class="hero teaser" style="padding-top: 0;">
+    <section class="section" style="padding-top: 0;">
         <div class="container is-max-desktop">
-            <div class="hero-body">
-                <img id="teaser" src="images/retain_teaser.png" alt="robust finetuning of VLA robot policies"
-                    width="100%">
-                <h2 class="subtitle has-text-centered">
-                </h2>
+            <div class="hero-body" style="display: flex; justify-content: center;">
+                <video controls autoplay loop muted playsinline style="width: 100%; max-width: 1200px; border-radius: 10px;">
+                    <source src="videos/retain_twitter_v3_crop.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
             </div>
         </div>
     </section>
-
+    
     <section class="section">
         <div class="container is-max-desktop">
             <div style="background-color: #f5f5f5; padding: 40px; border-radius: 10px; margin: 0 auto; max-width: 85%;">
@@ -467,28 +466,17 @@
     <section class="section">
         <div class="container is-max-desktop">
             <h2 class="title is-3">A Simple Solution: RETAIN</h2>
-            <!-- <div class="columns">
-                <div class="column">
-                    <div class="content has-text-justified">
-                        <p>
-                            RETAIN introduces a simple, efficient approach to robust finetuning through parameter
-                            merging. The key insight is to merge the parameters of a pretrained Vision-Language-Action
-                            (VLA)
-                            model with those of a finetuned model using a weighted combination controlled by a merging
-                            coefficient \(\alpha\).
-                        </p>
-                        <p> Through this linear interpolation in weight space, we are able to
-                            combine the generalization capabilities of the pretrained model with the task-specific
-                            adaptation of the finetuned model to robustly learn a more general version of the skill, and
-                            thus generalize to OOD varaions of the target task while also retaining performance on tasks
-                            from
-                            pretraining.
-                        </p>
+
+            <section class="hero teaser" style="padding-top: 0;">
+                <div class="container is-max-desktop">
+                    <div class="hero-body">
+                        <img id="teaser" src="images/retain_teaser.png" alt="robust finetuning of VLA robot policies"
+                            width="100%">
+                        <h2 class="subtitle has-text-centered">
+                        </h2>
                     </div>
                 </div>
-            </div> -->
-
-
+            </section>
 
             <!-- Mathematical Formulations -->
             <div class="columns">
