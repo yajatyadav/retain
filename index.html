@@ -18,6 +18,8 @@
     <link rel="stylesheet" href="../assets/css/styles.css">
     <!-- <link rel="stylesheet" href="./static/css/index.css"> -->
     <link rel="icon" href="https://example.com/path/to/favicon.ico">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 
 
@@ -33,25 +35,25 @@
                         <!-- <h2 class="title" style="font-size: large; color: grey;"></h2> -->
                         <div class="is-size-5 publication-authors">
                             <span class="author-block">
-                                <a href="https://yajatyadav.github.io/">Yajat Yadav</a><sup>1*</sup>,
+                                <a href="https://yajatyadav.github.io/">Yajat Yadav</a><sup>*</sup>,
                             </span>
                             <span class="author-block">
-                                <a href="https://zhouzypaul.github.io/">Zhiyuan Zhou</a><sup>1*</sup>,
+                                <a href="https://zhouzypaul.github.io/">Zhiyuan Zhou</a><sup>*</sup>,
                             </span>
                             <span class="author-block">
-                                <a href="https://wagenmaker.github.io">Andrew Wagenmaker</a><sup>1</sup>,
+                                <a href="https://wagenmaker.github.io">Andrew Wagenmaker</a><sup></sup>,
                             </span>
                             <span class="author-block">
-                                <a href="https://kpertsch.github.io/">Karl Pertsch</a><sup>1</sup>
+                                <a href="https://kpertsch.github.io/">Karl Pertsch</a><sup></sup>
                             </span>
                             <span class="author-block">
-                                <a href="https://people.eecs.berkeley.edu/~svlevine/">Sergey Levine</a><sup>1</sup>
+                                <a href="https://people.eecs.berkeley.edu/~svlevine/">Sergey Levine</a><sup></sup>
                             </span>
                         </div>
 
                         <div class="is-size-5 publication-authors">
                             <span class="author-block"><sup>
-                                    <font size="-0.1">1
+                                    <font size="-0.1">
                                 </sup>UC Berkeley</font></span>
                             <span class="author-block"><sup>
                                     <font size="-0.1">*
@@ -98,7 +100,21 @@
                 <h2 class="title is-2 has-text-centered">TL;DR</h2>
                 <div class="content has-text-centered">
                     <p class="is-size-5">
-                        TODO: write a short summary here.
+                        <strong>Generalist robot policies</strong> struggle when finetuned on limited demonstrations:
+                        they
+                        <strong>overfit severely</strong>, losing both their generalist capabilities and failing to
+                        generalize
+                        even to simple variations of the target task (different objects, viewpoints, or positions). We
+                        introduce
+                        <strong>RETAIN (Robust finE-Tuning wiTh pArameter mergINg)</strong>, which addresses this by
+                        <strong>simply interpolating the weights</strong> of the pretrained and finetuned models in
+                        parameter
+                        space. RETAIN achieves <strong>~40% higher OOD success rates</strong> than prior finetuning
+                        methods on
+                        real robots, <strong>retains generalist abilities</strong> on non-target tasks, and enables
+                        <strong>continual acquisition of multiple skills</strong> sequentially. We also conduct several
+                        analyses
+                        to understand when and how model merging works best for robot policies.
                     </p>
                 </div>
             </div>
@@ -110,9 +126,11 @@
             <h2 class="title is-3">Robot Results</h2>
             <div class="content has-text-justified">
                 <p>
-                    RETAIN allows for robust, generalizable finetuning of VLA robot policies. Below, we demonstrate
+                    RETAIN allows for robust, generalizable finetuning of vision-language-action (VLA) robot policies.
+                    Below, we demonstrate
                     RETAIN's performance on two different robotic manipulation tasks, showing both in-distribution
-                    success and out-of-distribution generalization compared to standard task finetuning.
+                    success and out-of-distribution generalization compared to standard <strong>task finetuning</strong>
+                    (training all parameters of the model on the target task only).
                 </p>
             </div>
 
@@ -134,7 +152,7 @@
                 </div>
                 <div style="width: 100%; margin-bottom: 40px; display: flex; justify-content: center;">
                     <video controls autoplay loop muted playsinline style="width: 60%; max-width: 600px;">
-                        <source src="videos/plates_id_taskft_success.mp4" type="video/mp4">
+                        <source src="videos_sped_up/plates_id_2.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
                 </div>
@@ -147,14 +165,14 @@
                     <div style="flex: 1; max-width: 45%; text-align: center;">
                         <div style="margin-bottom: 8px; font-weight: 600;">Task Finetuning (Failure)</div>
                         <video controls autoplay loop muted playsinline style="width: 100%;">
-                            <source src="videos/plates_ood_1_taskft_failure.mp4" type="video/mp4">
+                            <source src="videos_sped_up/plates_ood1_fail.mp4" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
                     </div>
                     <div style="flex: 1; max-width: 45%; text-align: center;">
                         <div style="margin-bottom: 8px; font-weight: 600;">RETAIN (Success)</div>
                         <video controls autoplay loop muted playsinline style="width: 100%;">
-                            <source src="videos/plates_ood_1_retain_success.mp4" type="video/mp4">
+                            <source src="videos_sped_up/plates_ood1_success.mp4" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
                     </div>
@@ -168,18 +186,40 @@
                     <div style="flex: 1; max-width: 45%; text-align: center;">
                         <div style="margin-bottom: 8px; font-weight: 600;">Task Finetuning (Failure)</div>
                         <video controls autoplay loop muted playsinline style="width: 100%;">
-                            <source src="videos/plates_ood_2_taskft_failure.mp4" type="video/mp4">
+                            <source src="videos_sped_up/plates_ood2_fail_bad.mp4" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
                     </div>
                     <div style="flex: 1; max-width: 45%; text-align: center;">
                         <div style="margin-bottom: 8px; font-weight: 600;">RETAIN (Success)</div>
                         <video controls autoplay loop muted playsinline style="width: 100%;">
-                            <source src="videos/plates_ood_2_retain_success.mp4" type="video/mp4">
+                            <source src="videos_sped_up/plates_ood2_success.mp4" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
                     </div>
                 </div>
+
+                <!-- OOD Comparison 3 -->
+                <div style="width: 100%; text-align: center; margin-bottom: 10px;">
+                    <span style="font-weight: bold; font-size: 1em;">Out-of-Distribution Scenario 3</span>
+                </div>
+                <div style="display: flex; justify-content: center; gap: 2%; margin-bottom: 30px;">
+                    <div style="flex: 1; max-width: 45%; text-align: center;">
+                        <div style="margin-bottom: 8px; font-weight: 600;">Task Finetuning (Failure)</div>
+                        <video controls autoplay loop muted playsinline style="width: 100%;">
+                            <source src="videos_sped_up/plates_ood3_fail_cropped.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    <div style="flex: 1; max-width: 45%; text-align: center;">
+                        <div style="margin-bottom: 8px; font-weight: 600;">RETAIN (Success)</div>
+                        <video controls autoplay loop muted playsinline style="width: 100%;">
+                            <source src="videos_sped_up/plates_ood3_success_cropped.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                </div>
+
             </div>
 
             <!-- Whiteboards Task Section -->
@@ -199,7 +239,7 @@
                 </div>
                 <div style="width: 100%; margin-bottom: 40px; display: flex; justify-content: center;">
                     <video controls autoplay loop muted playsinline style="width: 60%; max-width: 600px;">
-                        <source src="videos/whiteboard_id_taskft_success.mp4" type="video/mp4">
+                        <source src="videos_sped_up/whiteboard_id.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
                 </div>
@@ -212,14 +252,14 @@
                     <div style="flex: 1; max-width: 45%; text-align: center;">
                         <div style="margin-bottom: 8px; font-weight: 600;">Task Finetuning (Failure)</div>
                         <video controls autoplay loop muted playsinline style="width: 100%;">
-                            <source src="videos/whiteboard_ood_1_taskft_failure.mp4" type="video/mp4">
+                            <source src="videos_sped_up/whiteboard_ood_corner_fail.mp4" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
                     </div>
                     <div style="flex: 1; max-width: 45%; text-align: center;">
                         <div style="margin-bottom: 8px; font-weight: 600;">RETAIN (Success)</div>
                         <video controls autoplay loop muted playsinline style="width: 100%;">
-                            <source src="videos/whiteboard_ood_1_retain_success.mp4" type="video/mp4">
+                            <source src="videos_sped_up/whiteboard_ood_corner_success.mp4" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
                     </div>
@@ -233,14 +273,14 @@
                     <div style="flex: 1; max-width: 45%; text-align: center;">
                         <div style="margin-bottom: 8px; font-weight: 600;">Task Finetuning (Failure)</div>
                         <video controls autoplay loop muted playsinline style="width: 100%;">
-                            <source src="videos/whiteboard_ood_2_taskft_failure.mp4" type="video/mp4">
+                            <source src="videos_sped_up/whiteboard_ood_table_fail.mp4" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
                     </div>
                     <div style="flex: 1; max-width: 45%; text-align: center;">
                         <div style="margin-bottom: 8px; font-weight: 600;">RETAIN (Success)</div>
                         <video controls autoplay loop muted playsinline style="width: 100%;">
-                            <source src="videos/whiteboard_ood_2_retain_success.mp4" type="video/mp4">
+                            <source src="videos_sped_up/whiteboard_ood_table_success.mp4" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
                     </div>
@@ -254,14 +294,14 @@
                     <div style="flex: 1; max-width: 45%; text-align: center;">
                         <div style="margin-bottom: 8px; font-weight: 600;">Task Finetuning (Failure)</div>
                         <video controls autoplay loop muted playsinline style="width: 100%;">
-                            <source src="videos/whiteboard_ood_3_taskft_failure.mp4" type="video/mp4">
+                            <source src="videos_sped_up/whiteboard_ood_room_fail.mp4" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
                     </div>
                     <div style="flex: 1; max-width: 45%; text-align: center;">
                         <div style="margin-bottom: 8px; font-weight: 600;">RETAIN (Success)</div>
                         <video controls autoplay loop muted playsinline style="width: 100%;">
-                            <source src="videos/whiteboard_ood_3_retain_success.mp4" type="video/mp4">
+                            <source src="videos_sped_up/whiteboard_ood_room_success.mp4" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
                     </div>
@@ -276,9 +316,24 @@
             <div class="columns">
                 <div class="column">
                     <div class="content has-text-justified">
-                        <p>
-                            TODO: higher-level motivation for RETAIN (robot foundation models require adaptation,
-                            require lot of demos, etc.)
+                        <p class="is-size-5">
+                            Recent <strong>generalist robot policies</strong> trained on large, diverse datasets have
+                            demonstrated
+                            remarkable capabilities across varied environments, objects, and tasks. However, they still
+                            <strong>require adaptation</strong> for new downstream tasks or robot systems. While prior
+                            work has
+                            shown that finetuning with tens or hundreds of hours of data can yield robust policies,
+                            collecting
+                            such extensive datasets is often impractical.
+                            In practice, often <strong>less than 100 demonstrations</strong> or a few hours of robot
+                            data are used for finetuning.
+                            Unfortunately, existing finetuning approaches struggle in these low-data regimes: they
+                            <strong>fail to preserve the pretrained model's generality</strong> and
+                            <strong>cannot robustly generalize</strong> beyond the narrow conditions present in the
+                            limited finetuning dataset. This creates a critical need for methods that can
+                            <strong>leverage broad pretrained competencies while successfully learning new skills from
+                                small datasets</strong>, producing a single policy that both masters the new task across
+                            variations and retains generalist capabilities.
                         </p>
                     </div>
                 </div>
@@ -286,43 +341,23 @@
 
             <!-- Why Current Approaches Don't Work -->
             <div style="margin-top: 40px;">
-                <h3 class="title is-4">Why Current Approaches Don't Work</h3>
+                <h3 class="title is-4">Why Current Finetuning Approaches Don't Work</h3>
 
                 <!-- Overfitting to Environments -->
                 <div style="margin-bottom: 40px;">
                     <div class="custom-box" style="margin-bottom: 20px;">
                         <div class="content has-text-justified">
                             <p>
-                                <strong>Overfitting to Environment Configurations:</strong> Traditional task finetuning
-                                approaches tend to overfit to the specific environment configurations seen during
-                                training. When deployed to out-of-distribution scenarios with different object
-                                placements, lighting conditions, or scene layouts, these methods experience significant
-                                performance degradation. This brittleness limits the practical applicability of
-                                finetuned robot policies in real-world settings.
+                                <strong>Overfitting across Environments:</strong> Traditional
+                                task-finetuning, where we finetune the entire model on these small target datasets,
+                                suffers from this overfitting acoss environments. The plot below highlights the large
+                                gap between ID and OOD performance, as well as the gradual degradation of generalist
+                                capability, as we finetune a VLA on 3 different LIBERO tasks.
                             </p>
                         </div>
                     </div>
                     <div style="display: flex; justify-content: center; width: 90%; margin: 0 auto;">
-                        <img src="images/overfitting_envs.png" alt="Overfitting to specific environments"
-                            style="width: 100%;">
-                    </div>
-                </div>
-
-                <!-- Overfitting with Different Methods -->
-                <div style="margin-bottom: 40px;">
-                    <div class="custom-box" style="margin-bottom: 20px;">
-                        <div class="content has-text-justified">
-                            <p>
-                                <strong>Systematic Issue Across Methods:</strong> The overfitting problem is not unique
-                                to a single approach—various state-of-the-art finetuning methods exhibit similar failure
-                                modes when tested on out-of-distribution environments. This systematic challenge across
-                                different methodologies highlights the need for a fundamentally different approach to
-                                robust policy finetuning, which RETAIN addresses through parameter merging.
-                            </p>
-                        </div>
-                    </div>
-                    <div style="display: flex; justify-content: center; width: 90%; margin: 0 auto;">
-                        <img src="images/overfitting_methods.png" alt="Overfitting across different methods"
+                        <img src="images/overfitting_with_image.png" alt="Overfitting to specific environments"
                             style="width: 100%;">
                     </div>
                 </div>
@@ -332,11 +367,11 @@
                     <div class="custom-box" style="margin-bottom: 20px;">
                         <div class="content has-text-justified">
                             <p>
-                                <strong>Overfitting despite Tuning Gradient Steps and Learning Rate:</strong> Even when
-                                tuning the gradient steps and learning rate, the model still overfits to the
-                                in-distribution data.
-                                This shows that the overfitting problem is not due to the gradient steps or learning
-                                rate, but rather due to the model's inability to generalize to out-of-distribution data.
+                                <strong>Tuning Hyperparameters Does Not Help:</strong> With task-finetuning, despite
+                                extensive tuning of the learning rate schedule and gradient steps, we still suffer from
+                                a large gap betwen ID and OOD performance, and the degradation of generalist capability.
+                                This suggests that the overfitting problem cannot be simply solved by tuning the
+                                hyperparameters, and moe careful design is needed to ensure robust finetuning.
                             </p>
                         </div>
                     </div>
@@ -348,6 +383,29 @@
                             alt="Overfitting despite Tuning Gradient Steps and Learning Rate" style="width: 100%;">
                     </div>
                 </div>
+
+                <!-- Overfitting with Different Methods -->
+                <div style="margin-bottom: 40px;">
+                    <div class="custom-box" style="margin-bottom: 20px;">
+                        <div class="content has-text-justified">
+                            <p>
+                                <strong>Overfitting Issues Persist Across Finetuning Methods:</strong> Variations around
+                                task-finetuning all still suffer from this overfitting problem. As the below figure
+                                highlights, freezing parts of the model or using low-rank adaptation are still not able
+                                to handle the ID/OOD gap and generalist degradation problems highlighted above.
+                                Furthermore, while cotraining with pretraining data (Co-FT) is able to mitigate
+                                generalist skill retention, it still suffers from the policy not generalizing to OOD
+                                variations of the target task.
+                            </p>
+                        </div>
+                    </div>
+                    <div style="display: flex; justify-content: center; width: 90%; margin: 0 auto;">
+                        <img src="images/overfitting_methods.png" alt="Overfitting across different methods"
+                            style="width: 100%;">
+                    </div>
+                </div>
+
+
 
 
 
@@ -362,16 +420,18 @@
                 <div class="column">
                     <div class="content has-text-justified">
                         <p>
-                            RETAIN introduces a novel approach to robust finetuning through parameter merging. By
-                            combining the generalization capabilities of pretrained models with task-specific
-                            adaptations, RETAIN achieves superior performance on both in-distribution and
-                            out-of-distribution scenarios.
-                        </p>
-                        <p>
-                            The key insight is to merge the parameters of a pretrained Vision-Language-Action (VLA)
+                            RETAIN introduces a simple, efficient approach to robust finetuning through parameter
+                            merging. The key insight is to merge the parameters of a pretrained Vision-Language-Action
+                            (VLA)
                             model with those of a finetuned model using a weighted combination controlled by a merging
-                            coefficient α. This allows us to retain the broad knowledge encoded in the pretrained
-                            weights while incorporating task-specific improvements from finetuning.
+                            coefficient α.
+                        </p>
+                        <p> Through this linear interpolation in weight space, we are able to
+                            combine the generalization capabilities of the pretrained model with the task-specific
+                            adaptation of the finetuned model to robustly learn a more general version of the skill, and
+                            thus generalize to OOD varaions of the target task while also retaining performance on tasks
+                            from
+                            pretraining.
                         </p>
                     </div>
                 </div>
@@ -384,27 +444,53 @@
                 <div class="column">
                     <div class="content has-text-justified">
 
-                        <p><strong>Behavior Cloning + Co-Finetuning</strong></p>
+                        <p><strong>Finetuning Setting</strong></p>
                         <p>
-                            TODO: Talk about BC objective, as well as co-finetuning on pretraining data, etc.
+                            For finetuning the model on the target task, we use the standard behavior cloning (BC)
+                            objective:
+                            $$L_{BC}(\theta; \mathcal{D}) = - \frac{1}{|\mathcal{D}|} \sum_{(s_t, a_t, T) \in
+                            \mathcal{D}} \log \pi_\theta(a_t | s_t, T)$$
+                            where \(\mathcal{D}\) is the finetuning dataset and \(\pi_\theta\) is the policy
+                            parameterized by
+                            \(\theta\).
                         </p>
-
-                        <p><strong>Model Merging </strong></p>
-                        <div
-                            style="background-color: #f5f5f5; padding: 20px; border-radius: 5px; margin: 20px 0; text-align: center;">
-                            <p style="font-size: 1.2em; font-family: 'Times New Roman', serif;">
-                                θ<sub>merged</sub> = α · θ<sub>pretrained</sub> + (1 - α) · θ<sub>finetuned</sub>
-                            </p>
-                        </div>
                         <p>
-                            where θ<sub>pretrained</sub> represents the pretrained model parameters,
-                            θ<sub>finetuned</sub> represents the parameters after task-specific finetuning, and α ∈ [0,
+                            We consider two finetuning settings: <strong>task-finetuning (task-FT)</strong>,
+                            where we finetune the entire model on the target task dataset \(\mathcal{D}_{\tau}\), and
+                            <strong>co-finetuning
+                                (co-FT)</strong>, where we finetune on a mix of the target task dataset
+                            \(\mathcal{D}_{\tau}\) and the
+                            pretraining dataset \(\mathcal{D}_{pre}\).
+                        </p>
+                        <p><strong>Model Merging </strong></p>
+                        <p>$$\tilde{\theta} = (1 - \alpha) \cdot \theta_{pre} + \alpha \cdot \theta_{ft}$$</p>
+
+
+                        <p>
+                            where \(\theta_{pre}\) represents the pretrained model parameters,
+                            \(\theta_{ft}\) represents the parameters after task-specific finetuning, and \(\alpha\) ∈
+                            [0,
                             1] controls the balance between generalization and task specialization.
                         </p>
 
+                        <p> Using model merging with task-FT, we call this method <strong>RETAIN-task-FT</strong>.</p>
+                        <p> Using model merging with co-FT, we call this method <strong>RETAIN-co-FT</strong>.</p>
+
                         <p><strong>Continual Task Adaptation</strong></p>
                         <p>
-                            TODO: Talk about continual task adaptation, etc.
+                            We extend the model merging above to enable continual task adaptation. This is done by
+                            merging the pretrained model with the finetuned model after each task, and then finetuning
+                            the merged model on the next task.
+                        </p>
+                        <p>
+                            We extend the model merging above to enable continual task adaptation. This is done by
+                            sequentially
+                            merging the pretrained model with the finetuned model after each task.
+                            $$
+                            \tilde{\theta}_{n} = (1 - \alpha) \cdot \tilde{\theta}_{n-1} + \alpha \cdot \theta_{ft, n}
+                            $$
+                            where \(\theta_{ft, n}\) represents the parameters
+                            after finetuning the merged model \(\tilde{\theta}_{n-1}\) on the \(n\)-th task.
                         </p>
                         <img src="images/continual_merging.png" alt="Continual task adaptation" style="width: 100%;">
                     </div>
@@ -419,16 +505,14 @@
 
             <div class="content has-text-justified">
                 <p>
-                    RETAIN achieves <b>state-of-the-art performance</b> on robotic manipulation tasks while
-                    maintaining strong generalization to out-of-distribution scenarios. Our results demonstrate that
+                    RETAIN achieves <b>state-of-the-art performance</b> on robotic manipulation tasks when it comes to
+                    maintaining strong generalization to out-of-distribution scenarios, as well as retaining generalist
+                    capabilities on tasks from pretraining. Our results demonstrate that
                     parameter merging provides a simple yet effective approach to robust finetuning, significantly
-                    outperforming standard task finetuning methods that suffer from overfitting. Across diverse robotic
-                    tasks including manipulation, navigation, and dexterous control,
+                    outperforming standard task finetuning methods that suffer from overfitting. Across two DROID real
+                    robot tasks and three LIBERO simulation tasks,
                     <b>RETAIN consistently achieves superior out-of-distribution performance</b> compared to
-                    baseline methods. The parameter merging approach allows the policy to leverage both the broad
-                    knowledge from pretraining and task-specific adaptations, resulting in policies that are both
-                    specialized and robust. The plots below show comprehensive comparisons on two tasks with the DROID
-                    setup and 3 tasks in the LIBERO setup.
+                    baseline methods.
                 </p>
             </div>
 
@@ -453,13 +537,18 @@
                         <div class="content has-text-justified">
                             <h3>Does RETAIN scale with pretraining data?</h3>
                             <p>
-                                A key advantage of RETAIN is its ability to leverage the scale of pretraining data. We
-                                investigate how the quality and quantity of pretraining data impacts RETAIN's
-                                performance on downstream tasks. Our experiments demonstrate that RETAIN consistently
-                                benefits from larger and more diverse pretraining datasets, showing improved
-                                generalization to out-of-distribution environments as pretraining scale increases. This
-                                scaling behavior suggests that RETAIN can effectively harness the capabilities of
-                                large-scale VLA models.
+                                How well does RETAIN do when the pretraining model contains differing amounts of
+                                generalist knowledge, as induced by different amounts of pretraining data? To study
+                                this, we evaluate RETAIN-co-FT initialized with three different pretrained models: 1)
+                                trained on a
+                                subset of DROID, 2) trained on all of DROID, and 3) trained on all of DROID plus a large
+                                dataset from Physical Intelligence (PI).
+                            </p>
+                            <p>
+                                Our experiments demonstrate that RETAIN scales with
+                                the amount of pretraining data, and can better “transfer” generalist knowledge from the
+                                pretrained model to new scenes when the pretrained model is more general. The plots
+                                below show the results averaged over the two tasks in the DROID evaluation.
                             </p>
                         </div>
                     </div>
@@ -474,13 +563,16 @@
                         <div class="content has-text-justified">
                             <h3>Can RETAIN be applied sequentially?</h3>
                             <p>
-                                In practical robotics applications, policies often need to be adapted to multiple tasks
-                                sequentially. We explore whether RETAIN can be applied in a sequential manner, where a
-                                policy is first finetuned and merged for Task A, then further finetuned and merged for
-                                Task B, and so on. Our experiments demonstrate that RETAIN maintains its effectiveness
-                                across multiple sequential adaptation steps, successfully preventing catastrophic
-                                forgetting while accumulating task-specific knowledge. This opens up exciting
-                                possibilities for continual learning in robotic systems.
+                                In practical robotics applications, policies may need to be adapted to learn tasks
+                                sequentially. We explore whether RETAIN can be applied in a sequential manner by
+                                learning the DROID plates and whiteboard tasks in sequence.
+
+                            </p>
+                            <p>
+
+                                Compared to the strongest baseline of sequential co-finetuning on both tasks' datasets,
+                                sequential RETAIN is able to maintain its robust generalization to out-of-distribution
+                                scenarios for both tasks.
                             </p>
                         </div>
                     </div>
@@ -495,16 +587,54 @@
                         <div class="content has-text-justified">
                             <h3>What VLA modules matter most for merging?</h3>
                             <p>
-                                Vision-Language-Action models consist of multiple components including vision encoders,
-                                language encoders, and action decoders. We investigate which modules benefit most from
-                                parameter merging. Our analysis reveals that selectively merging different modules leads
-                                to varying performance profiles. Merging vision encoder parameters provides the
-                                strongest improvements for visual generalization, while merging action decoder
-                                parameters helps maintain task-specific precision. These findings enable more targeted
-                                merging strategies for different deployment scenarios.
+                                Vision-Language-Action models consist of a vision encoder (v), language encoder (l), and
+                                often an action expert (a). To study the advantages of independtely merging these
+                                different parameter groups, we extend the RETAIN merging formula to the following:.
                             </p>
+
+                            <p> $$
+                                \begin{pmatrix}
+                                \tilde{\theta}_v \\
+                                \tilde{\theta}_l \\
+                                \tilde{\theta}_a
+                                \end{pmatrix}
+                                = \left[1-\begin{pmatrix}
+                                \alpha_v \\
+                                \alpha_l \\
+                                \alpha_a
+                                \end{pmatrix}\right] \cdot \begin{pmatrix}
+                                \theta_{pre,v} \\
+                                \theta_{pre,l} \\
+                                \theta_{pre,a}
+                                \end{pmatrix} + \begin{pmatrix}
+                                \alpha_v \\
+                                \alpha_l \\
+                                \alpha_a
+                                \end{pmatrix} \cdot \begin{pmatrix}
+                                \theta_{ft,v} \\
+                                \theta_{ft,l} \\
+                                \theta_{ft,a}
+                                \end{pmatrix}
+                                $$</p>
+
+                            <p> After conducting a grid search of the coefficients \(\alpha_v\), \(\alpha_l\), and
+                                \(\alpha_a\), we find that the largest variation in OOD performance is achieved when
+                                \(\alpha_l\) is varied, as seen in the color gradient of the plot below.
+
+                                We also find that the best performance for a given \(\alpha_l\) is achieved by setting
+                                \(\alpha_v = \alpha_a = 1\), as seen in the second plot below.
+                            </p>
+
+                            <p> These results suggest that during model merging, it may suffice to only merge the
+                                parameters of the language model backbone (\(\alpha_l < 1\)) and leave the parameters in
+                                    the vision encoder and the action expert set to the parameter values in the
+                                    finetuned model (\(\alpha_v=\alpha_a=1\)). To validate this hypothesis, we compare
+                                    the OOD performance of merging all parameters with RETAIN (\(0 < \alpha < 1\)) to
+                                    only merging language model parameters. The results are shown in the third plot
+                                    below.</p>
                         </div>
                     </div>
+
                     <!-- First row: 2 images -->
                     <div
                         style="display: flex; justify-content: center; gap: 2%; width: 90%; margin: 0 auto; margin-bottom: 20px;">
@@ -524,18 +654,25 @@
                             <h3>How much does the alpha parameter matter?</h3>
                             <p>
                                 The merging coefficient α controls the trade-off between retaining pretrained knowledge
-                                and incorporating task-specific adaptations. We perform an ablation study varying α from
-                                0 (pure finetuned model) to 1 (pure pretrained model). Our results show that
-                                intermediate values of α (typically between 0.3 and 0.7) achieve the best balance,
-                                maintaining strong in-distribution performance while significantly improving
-                                out-of-distribution robustness. Interestingly, the optimal α varies slightly across
-                                different tasks and pretraining scales.
+                                and incorporating task-specific adaptations. We perform an ablation study varying
+                                \(\alpha\) from
+                                0 (pure finetuned model) to 1 (pure pretrained model) and evaluating on the 3 LIBERO
+                                tasks. Lining up with real-world results, our results show that model merging helps
+                                improve OOD performance as long as the merged model is not too deviated from the
+                                finetuned model.
+                            </p>
+                            <p>
+                                While we find in our real-world experiments that RETAIN is robust to different values of
+                                \(\alpha\), slight tuning of it is still needed to achieve the best possible OOD
+                                performance.
+                                An exciting future dierction is determining a good heuristic for choosing the optimal
+                                \(\alpha\) value for a given task and dataset.
                             </p>
                         </div>
                     </div>
                     <div
                         style="display: flex; justify-content: center; width: 90%; margin: 0 auto; margin-bottom: 60px;">
-                        <img src="images/avg_ood_vs_alpha.png" alt="Alpha parameter sensitivity analysis"
+                        <img src="images/ood_type_and_alpha_ablation.png" alt="Alpha parameter sensitivity analysis"
                             style="width: 100%;">
                     </div>
 
